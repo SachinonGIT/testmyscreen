@@ -1,0 +1,14 @@
+# https://urgenthai.com/robots.txt
+User-agent: *
+Allow: /
+
+# Allow all test pages
+Allow: /tests/
+Allow: /tests/dead-pixel
+Allow: /tests/color-accuracy
+Allow: /tests/backlight-bleed
+Allow: /tests/viewing-angle
+Allow: /tests/response-time
+
+# Sitemaps
+Sitemap: https://urgenthai.com/sitemap.xml 

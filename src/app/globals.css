@@ -3,19 +3,133 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Modern Color System */
+  --primary: #2563eb;
+  --primary-light: #3b82f6;
+  --primary-dark: #1d4ed8;
+  --surface: rgba(255, 255, 255, 0.03);
+  --surface-hover: rgba(255, 255, 255, 0.08);
+  --border: rgba(255, 255, 255, 0.1);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-tertiary: rgba(255, 255, 255, 0.5);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    @apply bg-[#030712] text-white antialiased;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+  }
+
+  ::selection {
+    @apply bg-blue-500/30;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .card {
+    @apply rounded-2xl bg-[var(--surface)] border border-[var(--border)] backdrop-blur-xl;
+    box-shadow: 0 4px 24px -6px rgba(0, 0, 0, 0.3);
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:bg-[var(--surface-hover)] hover:border-[var(--border)] hover:scale-[1.02];
+  }
+
+  .button-primary {
+    @apply bg-blue-600 text-white rounded-lg px-6 py-3 font-medium
+    transition-all duration-300 hover:bg-blue-500 hover:scale-105
+    focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+    focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed
+    disabled:hover:scale-100 active:scale-95;
+  }
+
+  .button-secondary {
+    @apply px-4 py-2 rounded-xl bg-[var(--surface)] border border-[var(--border)]
+           text-white font-medium transition-all duration-200
+           hover:bg-[var(--surface-hover)] active:bg-[var(--surface)];
+  }
+
+  .input {
+    @apply bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white 
+    placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 
+    focus:border-transparent transition-all duration-300;
+  }
+
+  .select {
+    @apply input appearance-none pr-10 cursor-pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.25rem;
+  }
+}
+
+/* Modern range input styles */
+input[type="range"] {
+  @apply h-2 rounded-full bg-[var(--surface)] appearance-none cursor-pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  @apply w-4 h-4 rounded-full bg-[var(--primary)] appearance-none 
+         transition-all duration-200 hover:bg-[var(--primary-light)];
+}
+
+/* Modern scrollbar */
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-[var(--surface-hover)] rounded-full;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Background gradients */
+.bg-gradient-dark {
+  background: radial-gradient(circle at top left, #1a1f35, #030712);
+}
+
+.bg-gradient-glow {
+  background: radial-gradient(circle at center, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+}
+
+/* Typography */
+.h1 {
+  @apply text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight;
+  line-height: 1.1;
+}
+
+.h2 {
+  @apply text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight;
+  line-height: 1.2;
+}
+
+.body-large {
+  @apply text-lg text-[var(--text-secondary)] leading-relaxed;
+}
+
+.body {
+  @apply text-base text-[var(--text-secondary)] leading-relaxed;
+}
+
+.caption {
+  @apply text-sm text-[var(--text-tertiary)] leading-relaxed;
 }
